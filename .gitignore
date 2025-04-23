@@ -1,0 +1,16 @@
+# it's a django project
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# django
+.DS_Store
+
+# venv
+.venv/
+
+# virtualenv
+__pycache__/
