@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Task, Comment
 from user.models import User
-from project.models import Project
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -32,4 +31,20 @@ class TaskSerializer(serializers.ModelSerializer):
             }
         return None
 
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    class Meta:
+        model = Comment
+        fields = ['id', 'content', 'user', 'created_at']
+        read_only_fields = ['user', 'created_at']
+        
+    def get_user(self, obj):
+        if obj.user:
+            return {
+                'id': obj.user.id,
+                'username': obj.user.username,
+                'email': obj.user.email
+            }
+        return None
         
