@@ -15,6 +15,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    
+    # Custom Apps
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +52,7 @@ WSGI_APPLICATION = 'project_management.wsgi.application'
 ASGI_APPLICATION = 'project_management.asgi.application'
 
 # Authentication
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'user.User'
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -81,7 +84,6 @@ USE_TZ = True
 # Static and Media Files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
