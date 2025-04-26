@@ -13,6 +13,6 @@ urlpatterns = [
     
     path('api/', include('user.urls')),
     path('api/', include('project.urls')),
-    # path('api/', include('tasks.urls')),
+    path('api/', include('task.urls')),
     # path('api/', include('comments.urls')),
 ]

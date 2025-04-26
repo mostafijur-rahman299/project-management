@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'user',
     'project',
+    'task',
 ]
 
 MIDDLEWARE = [
