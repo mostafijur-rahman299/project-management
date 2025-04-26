@@ -1,14 +1,14 @@
 {
 	"info": {
 		"_postman_id": "3bbf204a-d3db-4c28-b8a4-2ab7b7db78bc",
-		"name": "API documentation",
-		"description": "# 📄 Get started here\n\nThis template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n## 🔖 How to use this template\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+		"name": "Project Management API Documentation",
+		"description": "## Overview\n\nThe Project Management API provides endpoints to manage users, projects, tasks, and comments. It supports user authentication, project and task creation, updates, retrieval, and deletion, as well as commenting functionality. All endpoints use the base URL defined by the `{{host}}` variable, typically set to `https://farming-simulator.pstmn.io`.\n\n## Authentication\n\nMost endpoints require authentication via a Bearer token included in the `Authorization` header. Additionally, an API key is required for all requests, passed as `X-API-Key` with the value stored in the `{{token}}` variable.\n\n### Authentication Header Example\n\n```\nAuthorization: Bearer <your_jwt_token>\nX-API-Key: <your_api_key>\n\n ```\n\n## Endpoints\n\n### Users\n\nManage user accounts, including registration, login, and profile management.\n\n- **Register User**\n    \n    - **Method**: POST\n        \n    - **URL**: `{{host}}/api/users/register/`\n        \n    - **Body**: Form-data with `username`, `email`, `first_name`, `last_name`, `password`\n        \n    - **Description**: Creates a new user account.\n        \n- **Login User**\n    \n    - **Method**: POST\n        \n    - **URL**: `{{host}}/api/users/login/`\n        \n    - **Body**: Form-data with `username`, `password`\n        \n    - **Description**: Authenticates a user and returns a JWT token.\n        \n- **Get User Details**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/users/{{id}}/`\n        \n    - **Body**: Form-data with `username`, `password` (optional, for authentication)\n        \n    - **Description**: Retrieves details of a specific user by ID.\n        \n- **Update User**\n    \n    - **Method**: PUT\n        \n    - **URL**: `{{host}}/api/users/{{id}}/`\n        \n    - **Body**: Form-data with `username`, `first_name`, `last_name`, `email`, `password`\n        \n    - **Description**: Updates user information.\n        \n- **Delete User**\n    \n    - **Method**: DELETE\n        \n    - **URL**: `{{host}}/api/users/{{id}}/`\n        \n    - **Description**: Deletes a user account by ID.\n        \n\n### Projects\n\nManage projects, including creation, retrieval, updates, and deletion.\n\n- **List Projects**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/projects/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves a list of all projects.\n        \n- **Retrieve Project**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/projects/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves details of a specific project by ID.\n        \n- **Create Project**\n    \n    - **Method**: POST\n        \n    - **URL**: `{{host}}/api/projects/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `name`, `description`\n        \n    - **Description**: Creates a new project.\n        \n- **Update Project**\n    \n    - **Method**: PUT\n        \n    - **URL**: `{{host}}/api/projects/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `name`, `description`\n        \n    - **Description**: Updates an existing project.\n        \n- **Delete Project**\n    \n    - **Method**: DELETE\n        \n    - **URL**: `{{host}}/api/projects/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Deletes a project by ID.\n        \n\n### Tasks\n\nManage tasks within projects, including creation, updates, and deletion.\n\n- **List Tasks**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/projects/{{project_id}}/tasks/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves a list of tasks for a specific project.\n        \n- **Create Task**\n    \n    - **Method**: POST\n        \n    - **URL**: `{{host}}/api/projects/{{project_id}}/tasks/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `title`, `status`, `priority`, `assigned_to`, `due_date`\n        \n    - **Description**: Creates a new task in a project.\n        \n- **Update Task**\n    \n    - **Method**: PUT\n        \n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `title`, `status`, `priority`, `assigned_to`, `due_date`\n        \n    - **Description**: Updates an existing task.\n        \n- **Retrieve Task**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves details of a specific task by ID.\n        \n- **Delete Task**\n    \n    - **Method**: DELETE\n        \n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Deletes a task by ID.\n        \n\n### Comments\n\nManage comments on tasks.\n\n- **List Comments**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/tasks/{{task_id}}/comments/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves a list of comments for a specific task.\n        \n- **Create Comment**\n    \n    - **Method**: POST\n        \n    - **URL**: `{{host}}/api/tasks/{{task_id}}/comments/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `content`\n        \n    - **Description**: Adds a new comment to a task.\n        \n- **Update Comment**\n    \n    - **Method**: PUT\n        \n    - **URL**: `{{host}}/api/comments/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Body**: Form-data with `content`\n        \n    - **Description**: Updates an existing comment.\n        \n- **Retrieve Comment**\n    \n    - **Method**: GET\n        \n    - **URL**: `{{host}}/api/comments/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Retrieves details of a specific comment by ID.\n        \n- **Delete Comment**\n    \n    - **Method**: DELETE\n        \n    - **URL**: `{{host}}/api/comments/{{id}}/`\n        \n    - **Headers**: `Authorization: Bearer`\n        \n    - **Description**: Deletes a comment by ID.\n        \n\n## Variables\n\nThe following variables are used in the API requests:\n\n- `{{host}}`: The base URL of the API (e.g., `https://farming-simulator.pstmn.io`).\n    \n- `{{id}}`: The ID of a user, project, task, or comment.\n    \n- `{{project_id}}`: The ID of a project.\n    \n- `{{task_id}}`: The ID of a task.\n    \n- `{{token}}`: The API key for authentication.\n    \n\n## Notes\n\n- All requests use `formdata` for body payloads.\n    \n- Ensure the `Authorization` header with a valid Bearer token is included for endpoints requiring authentication.\n    \n- The `X-API-Key` header is required for all requests.\n    \n- The API uses standard HTTP methods (GET, POST, PUT, DELETE) for CRUD operations.\n    \n- OverviewThe Project Management API provides endpoints to manage users, projects, tasks, and comments. It supports user authentication, project and task creation, updates, retrieval, and deletion, as well as commenting functionality. All endpoints use the base URL defined by the `{{host}}` variable, typically set to `https://farming-simulator.pstmn.io`.AuthenticationMost endpoints require authentication via a Bearer token included in the `Authorization` header. Additionally, an API key is required for all requests, passed as `X-API-Key` with the value stored in the `{{token}}` variable.Authentication Header ExampleAuthorization: Bearer X-API-Key: EndpointsUsersManage user accounts, including registration, login, and profile management.ProjectsManage projects, including creation, retrieval, updates, and deletion.TasksManage tasks within projects, including creation, updates, and deletion.CommentsManage comments on tasks.VariablesThe following variables are used in the API requests:Notes\n    \n    - **Register User**\n        \n        - **Method**: POST\n            \n        - **URL**: `{{host}}/api/users/register/`\n            \n        - **Body**: Form-data with `username`, `email`, `first_name`, `last_name`, `password`\n            \n        - **Description**: Creates a new user account.\n            \n    - **Login User**\n        \n        - **Method**: POST\n            \n        - **URL**: `{{host}}/api/users/login/`\n            \n        - **Body**: Form-data with `username`, `password`\n            \n        - **Description**: Authenticates a user and returns a JWT token.\n            \n    - **Get User Details**\n        \n        - **Method**: GET\n            \n        - **URL**: `{{host}}/api/users/{{id}}/`\n            \n        - **Body**: Form-data with `username`, `password` (optional, for authentication)\n            \n        - **Description**: Retrieves details of a specific user by ID.\n            \n    - **Update User**\n        \n        - **Method**: PUT\n            \n        - **URL**: `{{host}}/api/users/{{id}}/`\n            \n        - **Body**: Form-data with `username`, `first_name`, `last_name`, `email`, `password`\n            \n        - **Description**: Updates user information.\n            \n    - **Delete User**\n        \n        - **Method**: DELETE\n            \n        - **URL**: `{{host}}/api/users/{{id}}/`\n            \n        - **Description**: Deletes a user account by ID.\n            \n\n```\n- **List Projects**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/projects/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves a list of all projects.\n- **Retrieve Project**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/projects/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves details of a specific project by ID.\n- **Create Project**\n    - **Method**: POST\n    - **URL**: `{{host}}/api/projects/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `name`, `description`\n    - **Description**: Creates a new project.\n- **Update Project**\n    - **Method**: PUT\n    - **URL**: `{{host}}/api/projects/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `name`, `description`\n    - **Description**: Updates an existing project.\n- **Delete Project**\n    - **Method**: DELETE\n    - **URL**: `{{host}}/api/projects/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Deletes a project by ID.\n- **List Tasks**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/projects/{{project_id}}/tasks/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves a list of tasks for a specific project.\n- **Create Task**\n    - **Method**: POST\n    - **URL**: `{{host}}/api/projects/{{project_id}}/tasks/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `title`, `status`, `priority`, `assigned_to`, `due_date`\n    - **Description**: Creates a new task in a project.\n- **Update Task**\n    - **Method**: PUT\n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `title`, `status`, `priority`, `assigned_to`, `due_date`\n    - **Description**: Updates an existing task.\n- **Retrieve Task**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves details of a specific task by ID.\n- **Delete Task**\n    - **Method**: DELETE\n    - **URL**: `{{host}}/api/tasks/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Deletes a task by ID.\n- **List Comments**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/tasks/{{task_id}}/comments/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves a list of comments for a specific task.\n- **Create Comment**\n    - **Method**: POST\n    - **URL**: `{{host}}/api/tasks/{{task_id}}/comments/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `content`\n    - **Description**: Adds a new comment to a task.\n- **Update Comment**\n    - **Method**: PUT\n    - **URL**: `{{host}}/api/comments/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Body**: Form-data with `content`\n    - **Description**: Updates an existing comment.\n- **Retrieve Comment**\n    - **Method**: GET\n    - **URL**: `{{host}}/api/comments/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Retrieves details of a specific comment by ID.\n- **Delete Comment**\n    - **Method**: DELETE\n    - **URL**: `{{host}}/api/comments/{{id}}/`\n    - **Headers**: `Authorization: Bearer`\n    - **Description**: Deletes a comment by ID.\n- `{{host}}`: The base URL of the API (e.g., `https://farming-simulator.pstmn.io`).\n- `{{id}}`: The ID of a user, project, task, or comment.\n- `{{project_id}}`: The ID of a project.\n- `{{task_id}}`: The ID of a task.\n- `{{token}}`: The API key for authentication.\n- All requests use `formdata` for body payloads.\n- Ensure the `Authorization` header with a valid Bearer token is included for endpoints requiring authentication.\n- The `X-API-Key` header is required for all requests.\n- The API uses standard HTTP methods (GET, POST, PUT, DELETE) for CRUD operations.\n- Replace placeholder tokens in the `Authorization` header with valid JWT tokens obtained from the login endpoint.\n\n ```",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "11670765"
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Users",
 			"item": [
 				{
 					"name": "Register User",
@@ -83,12 +83,12 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "John-02",
+									"value": "sajib",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "test",
+									"value": "mahmud678",
 									"type": "text"
 								}
 							]
@@ -218,6 +218,563 @@
 				}
 			],
 			"description": "The `/me` endpoints let you manage information about the authenticated user."
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "List Projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg4MTkxLCJpYXQiOjE3NDU2ODQ1OTEsImp0aSI6ImIyOWEzNTE3N2E3ODRlMDE4ZGZkODZhYTIyMTYyZmMwIiwidXNlcl9pZCI6MX0.yY9Rhylt1DhNB8DlZlQftbCnMFTSPY8MJAOP7fSQceU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/projects/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg4MTkxLCJpYXQiOjE3NDU2ODQ1OTEsImp0aSI6ImIyOWEzNTE3N2E3ODRlMDE4ZGZkODZhYTIyMTYyZmMwIiwidXNlcl9pZCI6MX0.yY9Rhylt1DhNB8DlZlQftbCnMFTSPY8MJAOP7fSQceU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/projects/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg4MTkxLCJpYXQiOjE3NDU2ODQ1OTEsImp0aSI6ImIyOWEzNTE3N2E3ODRlMDE4ZGZkODZhYTIyMTYyZmMwIiwidXNlcl9pZCI6MX0.yY9Rhylt1DhNB8DlZlQftbCnMFTSPY8MJAOP7fSQceU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "New Project",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development.\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/projects/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg4MTkxLCJpYXQiOjE3NDU2ODQ1OTEsImp0aSI6ImIyOWEzNTE3N2E3ODRlMDE4ZGZkODZhYTIyMTYyZmMwIiwidXNlcl9pZCI6MX0.yY9Rhylt1DhNB8DlZlQftbCnMFTSPY8MJAOP7fSQceU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "New Project2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development.\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/projects/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{id}}",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg4MTkxLCJpYXQiOjE3NDU2ODQ1OTEsImp0aSI6ImIyOWEzNTE3N2E3ODRlMDE4ZGZkODZhYTIyMTYyZmMwIiwidXNlcl9pZCI6MX0.yY9Rhylt1DhNB8DlZlQftbCnMFTSPY8MJAOP7fSQceU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "New Project2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development.\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/projects/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "List Tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg5ODA3LCJpYXQiOjE3NDU2ODYyMDcsImp0aSI6ImQ5ZGMyYmFkM2UwZDQyY2I5ZDI4M2NmN2ZkYWQ3NWE5IiwidXNlcl9pZCI6MX0.byjw5PynvT_wFZLSJs0_k9PW5LNrafC9KusijappFMk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/projects/{{project_id}}/tasks/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "New Task",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "to_do",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "low",
+									"type": "text"
+								},
+								{
+									"key": "assigned_to",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2020-02-12T02:23:23",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/projects/{{project_id}}/tasks/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"{{project_id}}",
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg5ODA3LCJpYXQiOjE3NDU2ODYyMDcsImp0aSI6ImQ5ZGMyYmFkM2UwZDQyY2I5ZDI4M2NmN2ZkYWQ3NWE5IiwidXNlcl9pZCI6MX0.byjw5PynvT_wFZLSJs0_k9PW5LNrafC9KusijappFMk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "New Task2",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "to_do",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "low",
+									"type": "text"
+								},
+								{
+									"key": "assigned_to",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2020-02-12T02:23:23",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/tasks/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg5ODA3LCJpYXQiOjE3NDU2ODYyMDcsImp0aSI6ImQ5ZGMyYmFkM2UwZDQyY2I5ZDI4M2NmN2ZkYWQ3NWE5IiwidXNlcl9pZCI6MX0.byjw5PynvT_wFZLSJs0_k9PW5LNrafC9KusijappFMk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/tasks/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njg5ODA3LCJpYXQiOjE3NDU2ODYyMDcsImp0aSI6ImQ5ZGMyYmFkM2UwZDQyY2I5ZDI4M2NmN2ZkYWQ3NWE5IiwidXNlcl9pZCI6MX0.byjw5PynvT_wFZLSJs0_k9PW5LNrafC9KusijappFMk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/tasks/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "List Comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/tasks/{{task_id}}/comments/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}",
+								"comments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "Nice",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/tasks/{{task_id}}/comments/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{{task_id}}",
+								"comments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "Nice2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/comments/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Comment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/api/comments/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1Njk0NDA3LCJpYXQiOjE3NDU2OTA4MDcsImp0aSI6IjRlMDEzMzViNmNhZDRhYTI5Yjg0YzhhMGExMGE5MTllIiwidXNlcl9pZCI6MX0.L433fbr-FG5WHQuSAgrt-1pYTAXDJSt_sY8TbOoATXk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/api/comments/{{id}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
