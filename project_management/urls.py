@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import permissions
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -13,7 +12,7 @@ urlpatterns = [
     path('api/users/refresh-token/', TokenRefreshView.as_view(), name='token_refresh'),
     
     path('api/', include('user.urls')),
-    # path('api/', include('projects.urls')),
+    path('api/', include('project.urls')),
     # path('api/', include('tasks.urls')),
     # path('api/', include('comments.urls')),
 ]
